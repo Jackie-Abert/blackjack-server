@@ -24,11 +24,15 @@ const GamesService = {
   },
 
   updateGame(db, id, newGame) {
-    return db
-      .from('game_table')
-      .where("game.id", id)
+    return db('game_table AS g')
+      .where("g.id", id)
       .update(newGame)
-  }
+  },
+  deleteGame(db, id) {
+    return db('game_table')
+      .where({ id })
+      .delete()
+  },
 };
 
 module.exports = GamesService;

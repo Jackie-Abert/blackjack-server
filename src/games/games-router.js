@@ -22,6 +22,7 @@ gamesRouter
   .route("/:game_id")
   .get(requireAuth, checkGame,(req, res, next) => {
     res.json(req.game)
+    
   });
 //posts new game data to database
 gamesRouter
@@ -40,7 +41,7 @@ gamesRouter
       .then((game) => {
         res
         .status(201)
-        .location(path.join(req.originalUrl, `/${game.id}`))
+        .location(path.posix.join(req.originalUrl, `/${game.id}`))
         .json(game);
       })
       .catch(next);
@@ -60,6 +61,18 @@ gamesRouter
       res.status(204).end()
     })
     .catch(next)
+  })
+
+  /////deletes game by id
+  .delete((req, res, next) => {
+    GamesService.deleteGame(
+      req.app.get('db'),
+      req.params.game_id
+    )
+      .then(numRowsAffected => {
+        res.status(204).end()
+      })
+      .catch(next)
   })
 
 module.exports = gamesRouter;
