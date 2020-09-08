@@ -1,17 +1,17 @@
-const app = require('../src/games/games-router')
+//tests needed
+const gamesRouter = require('./../src/games/games-router')
 
-// describe('Games', () => {
-//     const testGames = [ 
-//         {
-
-//     }]
-
-
-//   it('GET / /:games_id', () => {
-//       const gameId = 1
-//       const expectedGame = testGame
-//     return supertest(app)
-//       .get('/:games_id')
-//       .)
-//   })
-// })
+describe('api/games', () => {
+    it('GET / responds with 200', () => {
+      supertest(gamesRouter)
+        .get('/').then((res)=>{
+            expect(res).to.have.status(201);
+            done();
+        })
+    })
+  })
+//GET to '/'  all games
+//GET to '/:game_id'   individual game
+//POST to '/' new game to database
+//PATCH to '/:game_id' updates game to database
+//DELETE to '/:game_id' deletes game from database

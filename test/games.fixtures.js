@@ -1,13 +1,11 @@
 function makeUsersArray() {
-    [
-        {id:1, user_name:"bob", password:"password123"},
-        {id:2, user_name:"bob", password:"password123"},
-        {id:3, user_name:"bob", password:"password123"},
-    ]
+  return [
+    { id: 1, user_name: "bob", password: "password123" },
+    { id: 2, user_name: "bob", password: "password123" },
+    { id: 3, user_name: "bob", password: "password123" },
+  ];
 }
-
-
-function makeGamesArray() {
+function makeGamesArray(users) {
   return [
     {
       id: 2,
@@ -15,7 +13,7 @@ function makeGamesArray() {
       wins: 9,
       losses: 22,
       moneywon: 37000,
-      user_id:1
+      user_id: 1,
     },
     {
       id: 3,
@@ -23,7 +21,7 @@ function makeGamesArray() {
       wins: 3,
       losses: 5,
       moneywon: 440,
-      user_id:2
+      user_id: 1,
     },
     {
       id: 4,
@@ -31,12 +29,12 @@ function makeGamesArray() {
       wins: 66,
       losses: 4,
       moneywon: 25000,
-      user_id:3
+      user_id: 1,
     },
   ];
 }
 
 module.exports = {
   makeGamesArray,
-  makeUsersArray
+  makeUsersArray,
 };

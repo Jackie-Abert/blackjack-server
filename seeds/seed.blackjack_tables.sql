@@ -1,4 +1,4 @@
-TRUNCATE users;
+TRUNCATE users, game_table;
 
 INSERT INTO users(user_name, password)
 VALUES

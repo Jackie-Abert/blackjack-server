@@ -1,7 +1,9 @@
 const express = require("express");
+const path = require('path')
 const GamesService = require("./games-service");
 const { requireAuth } = require("../middleware/jwt-auth");
 const jsonBodyParser = express.json();
+const { v4: uuidv4 } = require('uuid');
 const checkGame = require('../middleware/checkGameExists')
 
 const gamesRouter = express.Router();
@@ -28,20 +30,24 @@ gamesRouter
 gamesRouter
   .route("/")
   .post(requireAuth, jsonBodyParser, (req, res, next) => {
-    const { bank, wins, losses, moneywon} = req.body;
-    const newGame = { bank, wins, losses, moneywon};
+    const { bank, wins, losses, } = req.body;
+    const newGame = { bank, wins, losses };
     for (const [key, value] of Object.entries(newGame))
       if (value == null)
         return res.status(400).json({
-          error: `Missing '${key}' in request body`,
+          error: {message:`Missing '${key}' in request body`}
         });
-    newGame.user_id = req.user_id;
+    newGame.user_id=req.user.id
+    console.log(newGame,)
+    GamesService.insertGame(
+      req.app.get('db'),
+      newGame
+    )
 
-    GamesService.insertGame(req.app.get("db"), newGame)
-      .then((game) => {
+    .then(game => {
         res
         .status(201)
-        .location(path.posix.join(req.originalUrl, `/${game.id}`))
+        // .location(path.posix.join(req.originalUrl, `/${id}`))
         .json(game);
       })
       .catch(next);
@@ -50,8 +56,8 @@ gamesRouter
   gamesRouter
   .route("/:game_id")
   .patch(requireAuth, checkGame, jsonBodyParser, (req, res, next) => {
-    const { bank, wins, losses, moneywon } = req.body;
-    const gameUpdate = { bank, wins, losses, moneywon };
+    const { bank, wins, losses } = req.body;
+    const gameUpdate = { bank, wins, losses };
     GamesService.updateGame(
       req.app.get('db'),
       req.params.game_id,
