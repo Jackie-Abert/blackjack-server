@@ -15,7 +15,6 @@ const GamesService = {
   },
 
   insertGame(db, newGame) {
-    console.log(newGame, 'check new game')
     return db
       .insert(newGame)
       .into('game_table')

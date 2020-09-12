@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
 const testUsers = [

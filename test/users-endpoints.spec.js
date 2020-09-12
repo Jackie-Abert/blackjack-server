@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 //POST to 'auth/users/newuser  posting new user to database
 
 const expect = require("chai").expect;
